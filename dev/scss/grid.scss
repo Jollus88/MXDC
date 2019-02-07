@@ -1,2 +1,12 @@
 /*******************************/
 /* GRID AND GLOBAL LAYOUT STYLES */
+
+body {
+
+	min-width:320px;
+	overflow-x: hidden; /* small side-scroll overflow bug on mobile */
+
+	&, * {
+		box-sizing: border-box;
+	}
+}

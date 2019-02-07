@@ -1,46 +1,51 @@
 // TODO: This script breaks in Gulp v4.0.0. Unsure of exact reason, but has something to do with the watch task.
 
-var gulp = require('gulp');
+const gulp = require('gulp');
 
-var sass = require('gulp-sass');
-var uncss = require('gulp-uncss');
-var browserSync = require('browser-sync').create();
-var useref = require('gulp-useref');
-var sourcemaps = require('gulp-sourcemaps');
-var autoprefixer = require('gulp-autoprefixer');
+const sass = require('gulp-sass');
+const uncss = require('gulp-uncss');
+const browserSync = require('browser-sync').create();
+const useref = require('gulp-useref');
+const sourcemaps = require('gulp-sourcemaps');
+const autoprefixer = require('gulp-autoprefixer');
+const concat = require('gulp-concat');
 
 // Other requires...
-var uglify = require('gulp-uglify');
-var gulpIf = require('gulp-if');
-var cssnano = require('gulp-cssnano');
-var imagemin = require('gulp-imagemin');
-var cache = require('gulp-cache');
-var runSequence = require('run-sequence');
-var del = require('del');
+const uglify = require('gulp-uglify');
+const gulpIf = require('gulp-if');
+const cssnano = require('gulp-cssnano');
+const imagemin = require('gulp-imagemin');
+const cache = require('gulp-cache');
+const runSequence = require('run-sequence');
+const del = require('del');
 
 // Development Tasks
 gulp.task('watch', ['browserSync', 'sass'], function(){
-	gulp.watch('app/scss/**/*.scss', ['sass']);
+	gulp.watch('dev/scss/**/*.scss', ['sass']);
 	// Reloads the browser whenever HTML of JS files change
-	gulp.watch('app/*.html', browserSync.reload);
-	gulp.watch('app/js/**/*.js', browserSync.reload);
+	gulp.watch('dev/*.html', browserSync.reload);
+	gulp.watch('dev/js/**/*.js', browserSync.reload);
 });
 
 gulp.task('browserSync', function(){
 	browserSync.init({
 		server: {
-			baseDir: 'app'
+			baseDir: 'dev'
 		}
 	})
 });
 
 gulp.task('sass', function(){
-	//return gulp.src('app/scss/style.scss')
-	return gulp.src('app/scss/**/*.scss')
+	//return gulp.src('dev/scss/style.scss')
+	return gulp.src('dev/scss/_main.scss')
+		.pipe(concat('template.css'))
+		// Minifies only if it's a CSS file
+		// .pipe(gulpIf('*.css', cssnano()))
 		.pipe(sourcemaps.init())
 		.pipe(sass().on('error', sass.logError))
+		.pipe(cssnano())
 		.pipe(sourcemaps.write('.'))
-		.pipe(gulp.dest('app/css'))
+		.pipe(gulp.dest('dev/css'))
 		.pipe(browserSync.reload({
 			stream: true
 		}))
@@ -50,19 +55,16 @@ gulp.task('sass', function(){
 
 // Optimisation Tasks
 gulp.task('images', function(){
-	return gulp.src('app/images/**/*.+(png|jpg|gif|svg)')
+	return gulp.src('dev/images/**/*.+(png|jpg|gif|svg)')
 		// Caching images that have run through imagemin
 		.pipe(cache(imagemin({
 			interlaced: true
 		})))
 		.pipe(gulp.dest('public/images'))
 });
-gulp.task('fonts', function(){
-	return gulp.src('app/fonts/**/*')
-		.pipe(gulp.dest('public/fonts'))
-});
+
 gulp.task('useref', function(){
-	return gulp.src('app/*.html')
+	return gulp.src('dev/*.html')
 		.pipe(useref())
 		// Minifies only if it's a JS file
 		.pipe(gulpIf('*.js', uglify()))
@@ -72,13 +74,8 @@ gulp.task('useref', function(){
 			html: ['index.html']
 		}))*/
 		// Minifies only if it's a CSS file
-		.pipe(gulpIf('*.css', cssnano()))
+		// .pipe(gulpIf('*.css', cssnano()))
 		.pipe(gulp.dest('public'))
-});
-gulp.task('jsonminify', function(){
-	return gulp.src('app/api/*.json')
-		.pipe(jsonminify())
-		.pipe(gulp.dest('public/api'))		
 });
 gulp.task('clean:public', function(){
 	return del.sync('public');
@@ -92,7 +89,7 @@ gulp.task('clean:public', function(){
 gulp.task('build', function(){
 	runSequence(
 		'clean:public',
-		['sass','images','fonts','useref'])
+		['sass','images','useref'])
 });
 
 gulp.task('default', function(){
