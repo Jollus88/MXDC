@@ -1,9 +1,3 @@
-TODO: 
-	- Set up Gulp compiler to compile SASS files into CSS
-	- Configure compiler to compress images and output everything to /public folder
-
-------------------------------------------------------------------------------
-
 # Installation
 To install, make sure Gulp is first installed `npm install gulp -g`
 
@@ -19,3 +13,7 @@ Then install Gulp to the project `npm install gulp@3.9.1 --save-dev`
 To make edits and automatically compile SASS commands, use `gulp`
 
 To create a build, use `gulp build`
+
+## Current issues
+
+JS and CSS files not transferring over after Gulp build
