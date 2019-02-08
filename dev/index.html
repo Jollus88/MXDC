@@ -9,7 +9,7 @@
 
 		<link rel="stylesheet" href="css/template.min.css">
 
-		<!-- <link href="https://fonts.googleapis.com/css?family=Montserrat:300,500,700,800" rel="stylesheet"> -->
+		<link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,700,800" rel="stylesheet">
 
 	</head>
 
@@ -17,7 +17,7 @@
 		<header class="flex flex-row flex-nowrap flex-center">
 
 			<!-- tablet/desktop menu -->
-			<div class="nav-wrapper flex flex-row flex-grow">
+			<div class="nav-wrapper flex flex-row flex-grow flex-valign-center">
 				<img class="logo" src="images/logo.svg" alt="MXDC" />
 				<nav class="flex flex-grow flex-row-end">
 					<ul class="flex flex-row flex-valign-center desktop">
@@ -27,8 +27,15 @@
 						<li><a href="#">About MXDC</a></li>
 						<li><a href="#">Contact us</a></li>
 					</ul>
-					<ul class="flex flex-row flex-valign-center mobile menu-icon">
-						<li><img src="images/menu_icon.svg" /></li>
+					<ul class="flex flex-row flex-valign-center mobile">
+                        <li>
+                            <div class="menu-icon">
+                                <div class="line"></div>
+                                <div class="line"></div>
+                                <div class="line"></div>
+                            </div>
+                        </li>
+						<!-- <li><img src="images/menu_icon.svg" /></li> -->
 					</ul>
 				</nav>
 			</div>
@@ -56,8 +63,9 @@
 				<div class="content flex flex-row flex-grow">
 		
 					<div class="events-container row">
-						<div class="event col-1 col-md-2 col-lg-3">
-							<div class="event-image" style="background-image:url(images/desktop-tablet_placeholder-a.png)">
+						<a href="#" class="event col-1 col-md-2 col-lg-3">
+							<div class="event-image">
+								<div class="image" style="background-image:url(images/desktop-tablet_placeholder-a.png)"></div>
 							</div>
 							<div class="event-text">
 								<div class="event-title">
@@ -67,10 +75,12 @@
 									Lorum ipsum dolor
 								</div>
 							</div>
-						</div>
+						</a>
 		
-						<div class="event col-1 col-md-2 col-lg-3">
-							<div class="event-image" style="background-image:url(images/desktop-tablet_placeholder-a.png)"></div>
+						<a href="#" class="event col-1 col-md-2 col-lg-3">
+							<div class="event-image">
+								<div class="image" style="background-image:url(images/desktop-tablet_placeholder-a.png)"></div>
+							</div>
 							<div class="event-text">
 								<div class="event-title">
 									<h3>Event Title</h3>
@@ -79,10 +89,12 @@
 									Lorum ipsum dolor
 								</div>
 							</div>
-						</div>
+						</a>
 		
-						<div class="event col-1 col-md-2 col-lg-3">
-							<div class="event-image" style="background-image:url(images/desktop-tablet_placeholder-a.png)"></div>
+						<a href="#" class="event col-1 col-md-2 col-lg-3">
+							<div class="event-image">
+								<div class="image" style="background-image:url(images/desktop-tablet_placeholder-a.png)"></div>
+							</div>
 							<div class="event-text">
 								<div class="event-title">
 									<h3>Event Title</h3>
@@ -91,20 +103,20 @@
 									Lorum ipsum dolor
 								</div>
 							</div>
-						</div>
+						</a>
 					</div>
 				</div>
 			</div>
 	
 			<footer class="flex flex-row flex-nowrap flex-center">
-				<div class="footer-wrapper flex flex-row flex-grow flex-wrap">
+				<div class="footer-wrapper flex flex-row flex-grow flex-wrap flex-valign-center">
 					<img class="flex logo" src="images/logo.svg" alt="MXDC" />
 					<nav class="flex flex-grow flex-row-end">
 						<ul class="flex flex-valign-center">
 							<li><a href="#">Privacy</a></li>
 							<li><a href="#">Terms and Conditions</a></li>
 							<li><a href="#">Frequently Asked Questions</a></li>
-							<li><a href="#">Contact Us</a></li>
+							<li><a href="#">Contact us</a></li>
 						</ul>
 					</nav>
 				</div>
@@ -117,8 +129,38 @@
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 		<script type="text/javascript">
 
-			$('.menu-icon').click(function(){
-				$('.mobile-menu').toggleClass('show');
+			const endpoint = 'https://s3-ap-southeast-2.amazonaws.com/studiobravo/FED+Project/events.json';
+            var output = '';
+			
+			$(function(){
+
+                // Activate/Deactivate mobile menu
+				$('.menu-icon').click(function(){
+                    $(this).toggleClass('active');
+					$('.mobile-menu').toggleClass('show');
+                })
+                
+                // Retrieve AJAX for events and populate HTML
+                // Potential issue - if the format of the placeholders ever changes, this will also need to be updated
+				$.ajax({
+					type: "GET",
+					dataType: 'json',
+					url: endpoint,
+					success: function(result){
+						
+						for(var i in result){
+							output += '<a href="#" class="event col-1 col-md-2 col-lg-3">';
+							output += '<div class="event-image"><div class="image" style="background-image:url( ' + result[i].imgUrlDesktop + ')"></div></div>';
+							output += '<div class="event-text"><div class="event-title"><h3>' + result[i].title + '</h3></div><div class="event-description">' + result[i].description + '</div></div>';
+							output += '</a>';
+						}
+
+						$('.events-container').html(output);
+					},
+					error: function(result, status){
+						console.log('Error retrieving events JSON ' + status);
+					}
+				});
 			})
 
 		</script>
