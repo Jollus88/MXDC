@@ -19,7 +19,7 @@ body {
 .row{
     display:flex;
     flex-flow:row wrap;
-    
+
     .col-1 {
         width: 100%;
     }
@@ -90,8 +90,6 @@ body {
 	&-center {
 		justify-content:center;
 		align-items:center;
-		flex-direction:column;
-		height: 100%;
 	}
 
 	&-valign-center {
