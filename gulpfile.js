@@ -37,7 +37,7 @@ gulp.task('browserSync', function(){
 
 gulp.task('sass', function(){
 	//return gulp.src('dev/scss/style.scss')
-	return gulp.src('dev/scss/_main.scss')
+	return gulp.src('dev/scss/_all.scss')
 		.pipe(concat('template.min.css'))
 		// Minifies only if it's a CSS file
 		// .pipe(gulpIf('*.css', cssnano()))

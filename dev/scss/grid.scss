@@ -5,8 +5,137 @@ body {
 
 	min-width:320px;
 	overflow-x: hidden; /* small side-scroll overflow bug on mobile */
+	margin:0;
+	padding:0;
 
-	&, * {
+	* {
 		box-sizing: border-box;
 	}
+}
+
+
+/******* BASIC COLUMN GRID *******/
+
+.row{
+    display:flex;
+    flex-flow:row wrap;
+    
+    .col-1 {
+        width: 100%;
+    }
+    .col-2 {
+        width: 50%;
+    }
+    .col-2of3 {
+        width: 66.66%;
+    }
+    .col-3 {
+        width: 33.33%;
+    }
+    
+    @media (min-width:$breakpt-mobile) {
+    
+        .col-sm-1 {
+            width: 100%;
+        }
+        .col-sm-2 {
+            width: 50%;
+        }
+        .col-sm-3 {
+            width: 33.33%;
+        }
+    }
+    
+    @media (min-width:$breakpt-tablet) {
+    
+        .col-md-1 {
+            width: 100%;
+        }
+        .col-md-2 {
+            width: 50%;
+        }
+        .col-md-3 {
+            width: 33.33%;
+        }
+        .col-md-2of3 {
+            width: 66.6%;
+        }
+    }
+    
+    @media (min-width:$breakpt-desktop) {
+    
+        .col-lg-1 {
+            width: 100%;
+        }
+        .col-lg-2 {
+            width: 50%;
+        }
+        .col-lg-3 {
+            width: 33.33%;
+        }
+        .col-lg-2of3 {
+            width: 66.6%;
+        }
+    }
+}
+
+
+
+/******* FLEX *******/
+
+.flex {
+
+	display: flex;
+
+	&-center {
+		justify-content:center;
+		align-items:center;
+		flex-direction:column;
+		height: 100%;
+	}
+
+	&-valign-center {
+		align-items:center;
+	}
+
+	&-row {
+		flex-direction:row !important;
+	}
+
+	&-col {
+		flex-direction:column !important;
+	}
+
+	&-start {
+		align-items: flex-start;
+		justify-content: flex-start;
+	}
+
+	&-row-end {
+		align-items: center;
+		justify-content: flex-end;
+	}
+
+	&-col-start {
+		align-items: flex-start;
+		justify-content: flex-start;
+	}
+
+	&-col-end {
+		align-items: flex-end;
+		justify-content: flex-end;
+	}
+
+	&-grow {
+		flex-grow: 1;
+	}
+
+	&-wrap {
+		flex-wrap: wrap !important;
+	}
+
+	&-nowrap {
+		flex-wrap: nowrap !important;
+	}
+
 }

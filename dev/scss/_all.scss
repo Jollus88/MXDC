@@ -6,15 +6,16 @@ $layout: "mdxc";
 
 /* Global SASS */
 
+/* Variable SASS files */
+@import "variables.scss";
+@import "typography.scss";
+
 /* Local Globals */
 @import "commons.scss";
 @import "grid.scss";
 @import "icons.scss";
 @import "mixins.scss";
 
-/* Variable SASS files */
-@import "typography.scss";
-@import "variables.scss";
 
 /* Template Specific Styles */
 @import "template/_all.scss";
