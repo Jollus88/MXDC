@@ -1,0 +1,53 @@
+// 20190208113521
+// https://s3-ap-southeast-2.amazonaws.com/studiobravo/FED+Project/events.json
+
+[
+  {
+	"title": "Event Title 1",
+	"description": "Lorem ipsum dolor sit amet lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet lorem ipsum dolor sit amet",
+	"imgUrlMobile": "https://s3-ap-southeast-2.amazonaws.com/studiobravo/FED+Project/Assets/Mobile_placeholder-A.png",
+	"imgUrlMobile2x": "https://s3-ap-southeast-2.amazonaws.com/studiobravo/FED+Project/Assets/Mobile_placeholder-A@2x.png",
+	"imgUrlDesktop": "https://s3-ap-southeast-2.amazonaws.com/studiobravo/FED+Project/Assets/Desktop-Tablet_placeholder-A.png",
+	"imgUrlDesktop2x": "https://s3-ap-southeast-2.amazonaws.com/studiobravo/FED+Project/Assets/Desktop-Tablet_placeholder-A@2x.png"
+  },
+  {
+	"title": "Event Title 2",
+	"description": "Lorem ipsum dolor sit amet lorem ipsum dolor sit amet",
+	"imgUrlMobile": "https://s3-ap-southeast-2.amazonaws.com/studiobravo/FED+Project/Assets/Mobile_placeholder-B.png",
+	"imgUrlMobile2x": "https://s3-ap-southeast-2.amazonaws.com/studiobravo/FED+Project/Assets/Mobile_placeholder-B@2x.png",
+	"imgUrlDesktop": "https://s3-ap-southeast-2.amazonaws.com/studiobravo/FED+Project/Assets/Desktop-Tablet_placeholder-B.png",
+	"imgUrlDesktop2x": "https://s3-ap-southeast-2.amazonaws.com/studiobravo/FED+Project/Assets/Desktop-Tablet_placeholder-B@2x.png"
+  },
+  {
+	"title": "Event Title 3",
+	"description": "Lorem ipsum dolor \nsit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet",
+	"imgUrlMobile": "https://s3-ap-southeast-2.amazonaws.com/studiobravo/FED+Project/Assets/Mobile_placeholder-D.png",
+	"imgUrlMobile2x": "https://s3-ap-southeast-2.amazonaws.com/studiobravo/FED+Project/Assets/Mobile_placeholder-D@2x.png",
+	"imgUrlDesktop": "https://s3-ap-southeast-2.amazonaws.com/studiobravo/FED+Project/Assets/Desktop-Tablet_placeholder-D.png",
+	"imgUrlDesktop2x": "https://s3-ap-southeast-2.amazonaws.com/studiobravo/FED+Project/Assets/Desktop-Tablet_placeholder-D@2x.png"
+  },
+  {
+	"title": "Event Title 4",
+	"description": "Lorem ipsum dolor sit amet lorem ipsum dolor sit amet",
+	"imgUrlMobile": "https://s3-ap-southeast-2.amazonaws.com/studiobravo/FED+Project/Assets/Mobile_placeholder-C.png",
+	"imgUrlMobile2x": "https://s3-ap-southeast-2.amazonaws.com/studiobravo/FED+Project/Assets/Mobile_placeholder-C@2x.png",
+	"imgUrlDesktop": "https://s3-ap-southeast-2.amazonaws.com/studiobravo/FED+Project/Assets/Desktop-Tablet_placeholder-C.png",
+	"imgUrlDesktop2x": "https://s3-ap-southeast-2.amazonaws.com/studiobravo/FED+Project/Assets/Desktop-Tablet_placeholder-C@2x.png"
+  },
+  {
+	"title": "Event Title 5",
+	"description": "Lorem ipsum dolor sit amet lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet lorem ipsum dolor sit amet",
+	"imgUrlMobile": "https://s3-ap-southeast-2.amazonaws.com/studiobravo/FED+Project/Assets/Mobile_placeholder-E.png",
+	"imgUrlMobile2x": "https://s3-ap-southeast-2.amazonaws.com/studiobravo/FED+Project/Assets/Mobile_placeholder-E@2x.png",
+	"imgUrlDesktop": "https://s3-ap-southeast-2.amazonaws.com/studiobravo/FED+Project/Assets/Desktop-Tablet_placeholder-E.png",
+	"imgUrlDesktop2x": "https://s3-ap-southeast-2.amazonaws.com/studiobravo/FED+Project/Assets/Desktop-Tablet_placeholder-E@2x.png"
+  },
+  {
+	"title": "Event Title 6",
+	"description": "Lorem ipsum dolor sit amet lorem \tipsum dolor sit amet",
+	"imgUrlMobile": "https://s3-ap-southeast-2.amazonaws.com/studiobravo/FED+Project/Assets/Mobile_placeholder-F.png",
+	"imgUrlMobile2x": "https://s3-ap-southeast-2.amazonaws.com/studiobravo/FED+Project/Assets/Mobile_placeholder-F@2x.png",
+	"imgUrlDesktop": "https://s3-ap-southeast-2.amazonaws.com/studiobravo/FED+Project/Assets/Desktop-Tablet_placeholder-F.png",
+	"imgUrlDesktop2x": "https://s3-ap-southeast-2.amazonaws.com/studiobravo/FED+Project/Assets/Desktop-Tablet_placeholder-F@2x.png"
+  }
+]

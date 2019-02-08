@@ -15,79 +15,49 @@
 
 	<body class="home">
 		<header class="flex flex-row flex-nowrap flex-center">
+
+			<!-- tablet/desktop menu -->
 			<div class="nav-wrapper flex flex-row flex-grow">
 				<img class="logo" src="images/logo.svg" alt="MXDC" />
 				<nav class="flex flex-grow flex-row-end">
-					<ul class="flex flex-row flex-valign-center">
+					<ul class="flex flex-row flex-valign-center desktop">
 						<li><a href="#">Program</a></li>
 						<li><a href="#">Partners</a></li>
 						<li><a href="#">Locations</a></li>
 						<li><a href="#">About MXDC</a></li>
 						<li><a href="#">Contact us</a></li>
 					</ul>
+					<ul class="flex flex-row flex-valign-center mobile menu-icon">
+						<li><img src="images/menu_icon.svg" /></li>
+					</ul>
 				</nav>
 			</div>
-        </header>
+		</header>
 		
-		<div class="banner">
-			<!-- <img src="images/mobile_header.png" class="banner-bg" alt="MXDC Banner" 
-				srcset="images/mobile_header@2x.png 2x,
-						images/tablet_header.png 768w,
-						images/tablet_header@2x.png 768w 2x,
-						images/desktop_header.png 1200w,
-						images/desktop_header@2x.png 1200w 2x"
-				> -->
-			<div class="text-container flex flex-center text-align-center">
-				<h1><strong>MXDC Melbourne</strong><br>June 20 - 27</h1>
+		<div class="page">
+
+			<!-- mobile menu -->
+			<div class="mobile-menu">
+				<ul>
+					<li><a href="#">Program</a></li>
+					<li><a href="#">Partners</a></li>
+					<li><a href="#">Locations</a></li>
+					<li><a href="#">About MXDC</a></li>
+					<li><a href="#">Contact us</a></li>
+				</ul>
 			</div>
-		</div>
-		<div class="content-wrapper flex flex-row flex-nowrap flex-center">
-			<div class="content flex flex-row flex-grow">
-	
-				<div class="events-container row">
-					<div class="event col-1 col-md-2 col-lg-3">
-						<div class="event-image">
-							<!-- TODO: image srcset won't work because of multiple images of same size conditional... -->
-							<img src="images/mobile_placeholder-a.png" class="banner-bg" alt="MXDC Banner" 
-							srcset="images/desktop-tablet_placeholder-a.png 768w,
-									images/desktop-tablet_placeholder-a@2x.png 768w 2x"
-							>
-						</div>
-						<div class="event-text">
-							<div class="event-title">
-								<h3>Event Title</h3>
-							</div>
-							<div class="event-description">
-								Lorum ipsum dolor
-							</div>
-						</div>
-					</div>
-	
-					<div class="event col-1 col-md-2 col-lg-3">
-						<div class="event-image">
-							<!-- TODO: image srcset won't work because of multiple images of same size conditional... -->
-							<img src="images/mobile_placeholder-a.png" class="banner-bg" alt="MXDC Banner" 
-							srcset="images/desktop-tablet_placeholder-a.png 768w,
-									images/desktop-tablet_placeholder-a@2x.png 768w 2x"
-							>
-						</div>
-						<div class="event-text">
-							<div class="event-title">
-								<h3>Event Title</h3>
-							</div>
-							<div class="event-description">
-								Lorum ipsum dolor
-							</div>
-						</div>
-					</div>
-	
-					<div class="event col-1 col-md-2 col-lg-3">
-							<div class="event-image">
-								<!-- TODO: image srcset won't work because of multiple images of same size conditional... -->
-								<img src="images/mobile_placeholder-a.png" class="banner-bg" alt="MXDC Banner" 
-								srcset="images/desktop-tablet_placeholder-a.png 768w,
-										images/desktop-tablet_placeholder-a@2x.png 768w 2x"
-								>
+			
+			<div class="banner">
+				<div class="text-container flex flex-center text-align-center">
+					<h1><strong>MXDC Melbourne</strong><br>June 20 - 27</h1>
+				</div>
+			</div>
+			<div class="content-wrapper flex flex-row flex-nowrap flex-center">
+				<div class="content flex flex-row flex-grow">
+		
+					<div class="events-container row">
+						<div class="event col-1 col-md-2 col-lg-3">
+							<div class="event-image" style="background-image:url(images/desktop-tablet_placeholder-a.png)">
 							</div>
 							<div class="event-text">
 								<div class="event-title">
@@ -98,9 +68,61 @@
 								</div>
 							</div>
 						</div>
+		
+						<div class="event col-1 col-md-2 col-lg-3">
+							<div class="event-image" style="background-image:url(images/desktop-tablet_placeholder-a.png)"></div>
+							<div class="event-text">
+								<div class="event-title">
+									<h3>Event Title</h3>
+								</div>
+								<div class="event-description">
+									Lorum ipsum dolor
+								</div>
+							</div>
+						</div>
+		
+						<div class="event col-1 col-md-2 col-lg-3">
+							<div class="event-image" style="background-image:url(images/desktop-tablet_placeholder-a.png)"></div>
+							<div class="event-text">
+								<div class="event-title">
+									<h3>Event Title</h3>
+								</div>
+								<div class="event-description">
+									Lorum ipsum dolor
+								</div>
+							</div>
+						</div>
+					</div>
 				</div>
 			</div>
+	
+			<footer class="flex flex-row flex-nowrap flex-center">
+				<div class="footer-wrapper flex flex-row flex-grow flex-wrap">
+					<img class="flex logo" src="images/logo.svg" alt="MXDC" />
+					<nav class="flex flex-grow flex-row-end">
+						<ul class="flex flex-valign-center">
+							<li><a href="#">Privacy</a></li>
+							<li><a href="#">Terms and Conditions</a></li>
+							<li><a href="#">Frequently Asked Questions</a></li>
+							<li><a href="#">Contact Us</a></li>
+						</ul>
+					</nav>
+				</div>
+			</footer>
+
 		</div>
+
+
+
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+		<script type="text/javascript">
+
+			$('.menu-icon').click(function(){
+				$('.mobile-menu').toggleClass('show');
+			})
+
+		</script>
+
 	</body>
 
 </html>

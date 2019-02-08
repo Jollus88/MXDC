@@ -11,6 +11,8 @@ $header-background: #142926;
 $color-brand-primary: #50e2c1;
 $color-body: #282828;
 
+$footer-background: #707877;
+
 /* Global breakpoints */
 $breakpt-mobile: 416px;
 $breakpt-tablet: 768px;
@@ -19,3 +21,6 @@ $breakpt-desktop-lg: 1600px;
 $breakpt-desktop-xlg: 1800px;
 
 /* Layers --- zindex */
+
+$topnav: 50;
+$mobile-menu: 10;

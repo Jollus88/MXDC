@@ -5,7 +5,11 @@
 header {
 	background: $header-background;
 	min-height:70px;
-	padding: 0 20px;
+    padding: 0 20px;
+    position:fixed;
+    top:0;
+    width:100%;
+    z-index: $topnav;
 	@media (min-width: $breakpt-tablet){
 		min-height:100px;
     }
@@ -13,6 +17,19 @@ header {
         max-width:$max-contentwidth;
         nav{
             ul{
+                list-style-type:none;
+                &.desktop{
+                    display:none;
+                }
+                @media (min-width: $breakpt-tablet){
+                    &.desktop{
+                        display:flex;
+                    }
+                    &.mobile{
+                        display:none;
+                    }
+
+                }   
                 li{
                     margin:0 20px;
                     a{
@@ -26,8 +43,52 @@ header {
                 }
             }
         }
+        .menu-icon{
+            position: relative;
+            top: 3px;
+            li{
+                margin-right:0;
+                img{
+                    &:hover{
+                        cursor: pointer;
+                    }
+                }
+            }
+        }     
     }
 
+}
+
+.mobile-menu{
+    position:absolute;
+    width:100%;
+    height:100%;
+    background:rgba(0,0,0,0.8);
+
+    z-index:$mobile-menu;
+    display:none;
+    &.show{
+        display:flex;
+    }
+    // align-items:center;
+    justify-content:center;
+    text-align:center;
+    position:fixed;
+    overflow-y:auto;
+    padding:80px;
+    ul{
+        list-style-type:none;
+        li{
+            padding:20px 0;
+            font-size:2em;
+        }
+    }
+
+}
+
+.page{
+    // to account for the fixed navigation
+    margin-top:70px;
 }
 
 .content-wrapper{
@@ -37,42 +98,101 @@ header {
         max-width: $max-contentwidth;
 
         .events-container{
+            width:100%;
+            margin-bottom:100px;
             .event{
                 padding:20px;
+                display:flex;
+                flex-flow:row nowrap;
 
-                // Weird-ass requested margin offsets
+                height:150px;
+                overflow:hidden;
+                position:relative;
+                @media (min-width: $breakpt-tablet){
+                    flex-wrap:wrap;
+                    height:auto;
+                    overflow:auto;
+                }
+
+                // weird-ass requested margin offsets
                 @media (min-width: $breakpt-tablet){
 	                &:nth-child(even){
-	                	margin-top:40px;
+	                	top:40px;
 	                }
                 }
                 @media (min-width: $breakpt-desktop){
 					// select second event and every third event after
 					&:nth-child(3n+2){
-						margin-top:40px;
+						top:40px;
 					}
 					// select third event and every third event after
 					&:nth-child(3n+3){
-						margin-top:80px;
+						top:80px;
 					}
 				}
 				// /////
 
 
                 .event-image{
-                    img{
+                    width:25%;
+                    height:150px;
+                    @media (min-width: $breakpt-tablet){
                         width:100%;
-                        display:block;
+                        height:245px;
                     }
+                    background-repeat:no-repeat;
+                    background-position:center;
+                    background-size:cover;
+                    // img{
+                    //     width:100%;
+                    //     display:block;
+                    // }
                 }
                 .event-text{
+                    width:75%;
+                    height:150px;
                     background-color: #f2f2f2;
                     padding:15px;
+                    flex-grow:1;
                     @media (min-width: $breakpt-tablet){
+                        width:auto;
+                        height:auto;
                         padding:35px;
+                        // margin-top:-50px;
                     }
                     .event-title *{
                         margin-top:0;
+                        @media (max-width: $breakpt-tablet){
+                            margin-bottom:0.4em;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+footer{
+	background-color: $footer-background;
+	padding: 20px;
+    .footer-wrapper{
+        max-width:$max-contentwidth;
+        flex-flow:column wrap;
+        // .logo, nav{
+        //     flex-grow:1;
+        // }
+        nav{
+            ul{
+				list-style-type:none;
+                li{
+                    margin:0 20px;
+                    a{
+                        font-size:16px;
+                        color: #FFF;
+                        transition: color 0.2s ease;
+                        &:hover{
+                            color: $color-brand-primary;
+                        }
                     }
                 }
             }

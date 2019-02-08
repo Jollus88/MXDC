@@ -11,7 +11,10 @@
 		}
 		@media (min-width: $breakpt-desktop){
 			background-image: url(../images/desktop_header.png);
-			height:600px;
+            height:600px;
+        }
+		@media (min-width: $breakpt-desktop-xlg){
+            background-position:center -100px;
 		}
 		position:relative;
 		overflow:hidden;
