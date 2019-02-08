@@ -251,15 +251,27 @@ footer{
 	padding: 20px;
     .footer-wrapper{
         max-width:$max-contentwidth;
-        flex-flow:column wrap;
-        // .logo, nav{
-        //     flex-grow:1;
-        // }
+        flex-flow:column nowrap;
+        align-items:flex-start;
+        @media (min-width: $breakpt-tablet){
+            flex-flow:row nowrap;
+            align-items:center;
+        };
         nav{
             ul{
-				list-style-type:none;
+                list-style-type:none;
+                flex-flow:column nowrap;
+                align-items:flex-start;
+                padding-left:0;
+                @media (min-width: $breakpt-tablet){
+                    flex-flow:row nowrap;
+                }
+                
                 li{
-                    margin:0 20px;
+                    margin:10px 0;
+                    @media (min-width: $breakpt-tablet){
+                        margin:0 20px;
+                    }
                     a{
                         font-size:16px;
                         color: #FFF;

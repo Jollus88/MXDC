@@ -1,4 +1,5 @@
 // TODO: This script breaks in Gulp v4.0.0. Unsure of exact reason, but has something to do with the watch task.
+// JS and CSS files do not transfer over after build
 
 const gulp = require('gulp');
 
@@ -39,8 +40,6 @@ gulp.task('sass', function(){
 	//return gulp.src('dev/scss/style.scss')
 	return gulp.src('dev/scss/_all.scss')
 		.pipe(concat('template.min.css'))
-		// Minifies only if it's a CSS file
-		// .pipe(gulpIf('*.css', cssnano()))
 		.pipe(sourcemaps.init())
 		.pipe(sass().on('error', sass.logError))
 		.pipe(cssnano())
@@ -69,12 +68,8 @@ gulp.task('useref', function(){
 		// Minifies only if it's a JS file
 		.pipe(gulpIf('*.js', uglify()))
 		.pipe(gulp.dest('public'))
-		// Remove unused CSS
-		/*.pipe(uncss({
-			html: ['index.html']
-		}))*/
-		// Minifies only if it's a CSS file
-		// .pipe(gulpIf('*.css', cssnano()))
+
+		.pipe(gulpIf('*.css', cssnano()))
 		.pipe(gulp.dest('public'))
 });
 gulp.task('clean:public', function(){
