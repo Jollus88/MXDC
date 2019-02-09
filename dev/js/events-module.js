@@ -55,33 +55,37 @@ var eventsGlobs = {
 const outputEvents = {
 
 	getJSON: function(url){
-        return new Promise(function(resolve, reject){
-            let req = new XMLHttpRequest();
-            req.open('GET', url);
+		// none of this works for IE without a complex polyfill -_-
+        // return new Promise(function(resolve, reject){
+        //     let req = new XMLHttpRequest();
+        //     req.open('GET', url);
 
-            req.onload = function(){
-                if(req.status == 200){
-                    resolve(req.response);
-                } else {
-                    reject(Error(req.statusText));
-                }
-            };
-            req.onerror = function(){
-                reject(Error('Network Error'));
-            }
+        //     req.onload = function(){
+        //         if(req.status == 200){
+        //             resolve(req.response);
+        //         } else {
+        //             reject(Error(req.statusText));
+        //         }
+        //     };
+        //     req.onerror = function(){
+        //         reject(Error('Network Error'));
+        //     }
+        //     req.send();
+		// })
 
-            // Make the request
-            req.send();
-        })
-    },
-
-    getEvents: function(){
-        outputEvents.getJSON(eventsGlobs.endpoint).then(JSON.parse).then(function(response){
-			eventsGlobs.events = response;
-			outputEvents.renderEvents();
-        }, function(error){
-            console.log('failed to retrieve events JSON', error);
-        })
+		let req = new XMLHttpRequest();
+		req.open('GET', url);
+		req.onload = function() {
+			if (req.status === 200) {
+				console.log('success!');
+				eventsGlobs.events = JSON.parse(req.responseText);
+				outputEvents.renderEvents();
+			}
+			else {
+				console.log('failed to retrieve events JSON', req.status);
+			}
+		};
+		req.send();
     },
 
 	eventTemplate: function(result){
@@ -107,7 +111,7 @@ const outputEvents = {
 		outputEvents.renderEvents();
 
 		// then replace them with the stuff from the JSON file
-		outputEvents.getEvents();
+		outputEvents.getJSON(eventsGlobs.endpoint);
 	}
 }
 
