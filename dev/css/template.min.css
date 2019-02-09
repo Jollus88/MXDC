@@ -66,7 +66,6 @@ a {
 /* GENERAL COMPONENTS */
 header {
   background: #142926;
-  min-height: 70px;
   padding: 0 20px;
   position: fixed;
   top: 0;
@@ -74,9 +73,10 @@ header {
   z-index: 50; }
   @media (min-width: 768px) {
     header {
-      min-height: 100px; } }
+      padding: 20px 20px; } }
   header .nav-wrapper {
-    max-width: 1280px; }
+    max-width: 1280px;
+    width: 100%; }
     header .nav-wrapper nav ul {
       list-style-type: none; }
       header .nav-wrapper nav ul.desktop {
@@ -233,6 +233,7 @@ footer {
   padding: 20px; }
   footer .footer-wrapper {
     max-width: 1280px;
+    width: 100%;
     flex-flow: column nowrap;
     align-items: flex-start; }
     @media (min-width: 768px) {

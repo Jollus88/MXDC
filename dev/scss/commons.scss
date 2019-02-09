@@ -3,18 +3,21 @@
 
 
 header {
-	background: $header-background;
-	min-height:70px;
+    background: $header-background;
+    // fixed height messes up on IE11
+	// min-height:70px;
     padding: 0 20px;
     position:fixed;
     top:0;
     width:100%;
     z-index: $topnav;
 	@media (min-width: $breakpt-tablet){
-		min-height:100px;
+        // min-height:100px;
+        padding: 20px 20px;
     }
     .nav-wrapper{
         max-width:$max-contentwidth;
+        width:100%;
         nav{
             ul{
                 list-style-type:none;
@@ -255,6 +258,7 @@ footer{
 	padding: 20px;
     .footer-wrapper{
         max-width:$max-contentwidth;
+        width:100%;
         flex-flow:column nowrap;
         align-items:flex-start;
         @media (min-width: $breakpt-tablet){
