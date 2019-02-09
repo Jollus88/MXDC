@@ -1,33 +1,36 @@
 // TODO: This script breaks in Gulp v4.0.0. Unsure of exact reason, but has something to do with the watch task.
 // JS and CSS files do not transfer over after build
 
-const gulp = require('gulp');
+var gulp = require('gulp');
 
-const sass = require('gulp-sass');
-const uncss = require('gulp-uncss');
-const browserSync = require('browser-sync').create();
-const useref = require('gulp-useref');
-const sourcemaps = require('gulp-sourcemaps');
-const autoprefixer = require('gulp-autoprefixer');
-const concat = require('gulp-concat');
+var sass = require('gulp-sass');
+var uncss = require('gulp-uncss');
+var browserSync = require('browser-sync').create();
+var useref = require('gulp-useref');
+var sourcemaps = require('gulp-sourcemaps');
+var autoprefixer = require('gulp-autoprefixer');
+var concat = require('gulp-concat');
 
 // Other requires...
-const uglify = require('gulp-uglify');
-const gulpIf = require('gulp-if');
-const cssnano = require('gulp-cssnano');
-const imagemin = require('gulp-imagemin');
-const cache = require('gulp-cache');
-const runSequence = require('run-sequence');
-const del = require('del');
+var uglify = require('gulp-uglify');
+var gulpIf = require('gulp-if');
+var cssnano = require('gulp-cssnano');
+var imagemin = require('gulp-imagemin');
+var cache = require('gulp-cache');
+var runSequence = require('run-sequence');
+var del = require('del');
+var babel = require('gulp-babel');
+
+sass.compiler = require('node-sass');
+
 
 // Development Tasks
 gulp.task('watch', ['browserSync', 'sass'], function(){
 	gulp.watch('dev/scss/**/*.scss', ['sass']);
-	// Reloads the browser whenever HTML of JS files change
+	// Reloads the browser whenever HTML or JS files change
 	gulp.watch('dev/*.html', browserSync.reload);
 	gulp.watch('dev/js/**/*.js', browserSync.reload);
 });
-
 gulp.task('browserSync', function(){
 	browserSync.init({
 		server: {
@@ -36,13 +39,16 @@ gulp.task('browserSync', function(){
 	})
 });
 
+// Stylesheet compiling
 gulp.task('sass', function(){
-	//return gulp.src('dev/scss/style.scss')
 	return gulp.src('dev/scss/_all.scss')
 		.pipe(concat('template.min.css'))
 		.pipe(sourcemaps.init())
+		.pipe(autoprefixer({
+			browsers: ['last 2 versions'],
+			cascade: false
+		}))
 		.pipe(sass().on('error', sass.logError))
-		.pipe(cssnano())
 		.pipe(sourcemaps.write('.'))
 		.pipe(gulp.dest('dev/css'))
 		.pipe(browserSync.reload({
@@ -50,9 +56,31 @@ gulp.task('sass', function(){
 		}))
 });
 
-//
+// Minify css
+gulp.task('minifycss', function(){
+	return gulp.src('dev/css/**/*.css')
+		.pipe(cssnano())
+})
 
-// Optimisation Tasks
+// DEFAULT TASK
+gulp.task('default', function(){
+	runSequence(['sass','browserSync','watch'])
+});
+// /////
+
+// BUILD TASKS
+// Running scripts through babel
+gulp.task('scripts', function(){
+	return gulp.src('dev/js/**/*.js')
+		.pipe(babel({
+			// THIS DOES NOT WORK
+			// presets: ['es2015']
+			presets: ['@babel/preset-env']
+		}))
+		.pipe(gulp.dest('public/js'))
+	});
+	
+// Compressing images
 gulp.task('images', function(){
 	return gulp.src('dev/images/**/*.+(png|jpg|gif|svg)')
 		// Caching images that have run through imagemin
@@ -62,31 +90,27 @@ gulp.task('images', function(){
 		.pipe(gulp.dest('public/images'))
 });
 
-gulp.task('useref', function(){
-	return gulp.src('dev/*.html')
-		.pipe(useref())
-		// Minifies only if it's a JS file
-		.pipe(gulpIf('*.js', uglify()))
-		.pipe(gulp.dest('public'))
+// Move just the CSS + map to the build folder
+gulp.task('movecss', function(){
+	return gulp.src('dev/css/**/*.css*')
+	.pipe(gulp.dest('public/css'))
+})
 
-		.pipe(gulpIf('*.css', cssnano()))
-		.pipe(gulp.dest('public'))
-});
+// Move HTML files
+gulp.task('movehtml', function(){
+	return gulp.src('dev/**.html')
+	.pipe(gulp.dest('public'))
+})
+
+// Clean the public folder
 gulp.task('clean:public', function(){
 	return del.sync('public');
 });
-//
 
 // Tie everything together into one glorious whole
-/*gulp.task('task-name', function(callback) {
-  runSequence('task-one', 'task-two', 'task-three', callback);
-});*/
 gulp.task('build', function(){
 	runSequence(
 		'clean:public',
-		['sass','images','useref'])
+		['sass','scripts','images','minifycss','movecss','movehtml'])
 });
-
-gulp.task('default', function(){
-	runSequence(['sass','browserSync','watch'])
-});
+// ////////

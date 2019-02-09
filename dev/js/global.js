@@ -1,9 +1,10 @@
-$(function(){
+// Activate/Deactivate the mobile nav menu
+const mobileMenuBtn = document.querySelector('.menu-icon');
+const mobileMenu = document.querySelector('.mobile-menu');
 
-	// Activate/Deactivate mobile menu
-	$('.menu-icon').click(function(){
-		$(this).toggleClass('active');
-		$('.mobile-menu').toggleClass('show');
-	});
+const toggleActiveClass = function(e){
+	this.classList.toggle('active');
+	mobileMenu.classList.toggle('active');
+}
 
-});
+mobileMenuBtn.addEventListener('click', toggleActiveClass);

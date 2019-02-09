@@ -1,27 +1,114 @@
-$(function(){
-	
-	const endpoint = 'https://s3-ap-southeast-2.amazonaws.com/studiobravo/FED+Project/events.json';
-	var output = '';
+// Retrieve AJAX for events and populate HTML
+// Sounds like according to brief the events placeholders are to be rendered first, then are to be replaced by the events fed by the AJAXed JSON
 
-	// Retrieve AJAX for events and populate HTML
-	// Potential issue - if the format of the placeholders ever changes, this will also need to be updated
-	$.ajax({
-		type: "GET",
-		dataType: 'json',
-		url: endpoint,
-		success: function(result){
-			
-			for(var i in result){
-				output += '<a href="#" class="event col-1 col-md-2 col-lg-3">';
-				output += '<div class="event-image"><div class="image" style="background-image:url( ' + result[i].imgUrlDesktop + ')"></div></div>';
-				output += '<div class="event-text"><div class="event-title"><h3>' + result[i].title + '</h3></div><div class="event-description">' + result[i].description + '</div></div>';
-				output += '</a>';
-			}
-
-			$('.events-container').html(output);
-		},
-		error: function(result, status){
-			console.log('Error retrieving events JSON ' + status);
+var eventsGlobs = {
+	endpoint: 'https://s3-ap-southeast-2.amazonaws.com/studiobravo/FED+Project/events.json',
+	// DEFAULT EVENTS
+	// These will be replaced when/if the events JSON file is retrieved
+	events: [
+		{
+			description: "Lorem ipsum dolor sit amet lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet lorem ipsum dolor sit amet",
+			imgUrlDesktop: "https://s3-ap-southeast-2.amazonaws.com/studiobravo/FED+Project/Assets/Desktop-Tablet_placeholder-A.png",
+			imgUrlDesktop2x: "https://s3-ap-southeast-2.amazonaws.com/studiobravo/FED+Project/Assets/Desktop-Tablet_placeholder-A@2x.png",
+			imgUrlMobile: "https://s3-ap-southeast-2.amazonaws.com/studiobravo/FED+Project/Assets/Mobile_placeholder-A.png",
+			imgUrlMobile2x: "https://s3-ap-southeast-2.amazonaws.com/studiobravo/FED+Project/Assets/Mobile_placeholder-A@2x.png",
+			title: "Event Title 1"
+		}, {
+			description: "Lorem ipsum dolor sit amet lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet lorem ipsum dolor sit amet",
+			imgUrlDesktop: "https://s3-ap-southeast-2.amazonaws.com/studiobravo/FED+Project/Assets/Desktop-Tablet_placeholder-A.png",
+			imgUrlDesktop2x: "https://s3-ap-southeast-2.amazonaws.com/studiobravo/FED+Project/Assets/Desktop-Tablet_placeholder-A@2x.png",
+			imgUrlMobile: "https://s3-ap-southeast-2.amazonaws.com/studiobravo/FED+Project/Assets/Mobile_placeholder-A.png",
+			imgUrlMobile2x: "https://s3-ap-southeast-2.amazonaws.com/studiobravo/FED+Project/Assets/Mobile_placeholder-A@2x.png",
+			title: "Event Title 2"
+		}, {
+			description: "Lorem ipsum dolor sit amet lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet lorem ipsum dolor sit amet",
+			imgUrlDesktop: "https://s3-ap-southeast-2.amazonaws.com/studiobravo/FED+Project/Assets/Desktop-Tablet_placeholder-A.png",
+			imgUrlDesktop2x: "https://s3-ap-southeast-2.amazonaws.com/studiobravo/FED+Project/Assets/Desktop-Tablet_placeholder-A@2x.png",
+			imgUrlMobile: "https://s3-ap-southeast-2.amazonaws.com/studiobravo/FED+Project/Assets/Mobile_placeholder-A.png",
+			imgUrlMobile2x: "https://s3-ap-southeast-2.amazonaws.com/studiobravo/FED+Project/Assets/Mobile_placeholder-A@2x.png",
+			title: "Event Title 3"
+		}, {
+			description: "Lorem ipsum dolor sit amet lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet lorem ipsum dolor sit amet",
+			imgUrlDesktop: "https://s3-ap-southeast-2.amazonaws.com/studiobravo/FED+Project/Assets/Desktop-Tablet_placeholder-A.png",
+			imgUrlDesktop2x: "https://s3-ap-southeast-2.amazonaws.com/studiobravo/FED+Project/Assets/Desktop-Tablet_placeholder-A@2x.png",
+			imgUrlMobile: "https://s3-ap-southeast-2.amazonaws.com/studiobravo/FED+Project/Assets/Mobile_placeholder-A.png",
+			imgUrlMobile2x: "https://s3-ap-southeast-2.amazonaws.com/studiobravo/FED+Project/Assets/Mobile_placeholder-A@2x.png",
+			title: "Event Title 4"
+		}, {
+			description: "Lorem ipsum dolor sit amet lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet lorem ipsum dolor sit amet",
+			imgUrlDesktop: "https://s3-ap-southeast-2.amazonaws.com/studiobravo/FED+Project/Assets/Desktop-Tablet_placeholder-A.png",
+			imgUrlDesktop2x: "https://s3-ap-southeast-2.amazonaws.com/studiobravo/FED+Project/Assets/Desktop-Tablet_placeholder-A@2x.png",
+			imgUrlMobile: "https://s3-ap-southeast-2.amazonaws.com/studiobravo/FED+Project/Assets/Mobile_placeholder-A.png",
+			imgUrlMobile2x: "https://s3-ap-southeast-2.amazonaws.com/studiobravo/FED+Project/Assets/Mobile_placeholder-A@2x.png",
+			title: "Event Title 5"
+		}, {
+			description: "Lorem ipsum dolor sit amet lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet lorem ipsum dolor sit amet",
+			imgUrlDesktop: "https://s3-ap-southeast-2.amazonaws.com/studiobravo/FED+Project/Assets/Desktop-Tablet_placeholder-A.png",
+			imgUrlDesktop2x: "https://s3-ap-southeast-2.amazonaws.com/studiobravo/FED+Project/Assets/Desktop-Tablet_placeholder-A@2x.png",
+			imgUrlMobile: "https://s3-ap-southeast-2.amazonaws.com/studiobravo/FED+Project/Assets/Mobile_placeholder-A.png",
+			imgUrlMobile2x: "https://s3-ap-southeast-2.amazonaws.com/studiobravo/FED+Project/Assets/Mobile_placeholder-A@2x.png",
+			title: "Event Title 6"
 		}
-	});
-})
+	]
+};
+
+const outputEvents = {
+
+	getJSON: function(url){
+        return new Promise(function(resolve, reject){
+            let req = new XMLHttpRequest();
+            req.open('GET', url);
+
+            req.onload = function(){
+                if(req.status == 200){
+                    resolve(req.response);
+                } else {
+                    reject(Error(req.statusText));
+                }
+            };
+            req.onerror = function(){
+                reject(Error('Network Error'));
+            }
+
+            // Make the request
+            req.send();
+        })
+    },
+
+    getEvents: function(){
+        outputEvents.getJSON(eventsGlobs.endpoint).then(JSON.parse).then(function(response){
+			eventsGlobs.events = response;
+			outputEvents.renderEvents();
+        }, function(error){
+            console.log('failed to retrieve events JSON', error);
+        })
+    },
+
+	eventTemplate: function(result){
+		return `
+		<a href="#" class="event col-1 col-md-2 col-lg-3">
+			<div class="event-image">
+				<div class="image" style="background-image:url( ${result.imgUrlDesktop} )"></div>
+			</div>
+			<div class="event-text">
+				<div class="event-title"><h3> ${result.title} </h3></div>
+				<div class="event-description"> ${result.description} </div>
+			</div>
+		</a>
+		`
+	},
+	renderEvents: function(){
+		document.getElementById('events-output').innerHTML = `
+			${eventsGlobs.events.map(outputEvents.eventTemplate).join('')}
+		`;
+	},
+	init: function(){
+        // render the initial placeholders
+		outputEvents.renderEvents();
+
+		// then replace them with the stuff from the JSON file
+		outputEvents.getEvents();
+	}
+}
+
+outputEvents.init();
